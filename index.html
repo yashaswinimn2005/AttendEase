@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AttendEase - Smart Attendance System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+</head>
+<body class="bg-gradient-to-br from-slate-50 to-blue-50 min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-white/80 backdrop-blur-md shadow-sm border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <div class="inline-flex items-center justify-center w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl mr-3">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">AttendEase</h1>
+                </div>
+                <div id="nav-buttons" class="hidden space-x-4">
+                    <button id="logout-btn" class="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-6 py-2 rounded-xl font-medium transition-all duration-200 shadow-sm hover:shadow-md">
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container mx-auto px-4 py-8">
+        <!-- Welcome Screen -->
+        <div id="welcome-screen" class="text-center">
+            <!-- Hero Section -->
+            <div class="max-w-4xl mx-auto mb-12">
+                <div class="bg-white rounded-2xl shadow-2xl p-12">
+                    <!-- Logo and Title -->
+                    <div class="mb-8">
+                        <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl mb-6">
+                            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <h1 class="text-5xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-4">
+                            AttendEase
+                        </h1>
+                        <p class="text-xl text-gray-600 mb-2">Smart Attendance Management System</p>
+                        <p class="text-lg text-gray-500">Streamline attendance tracking with QR code technology</p>
+                    </div>
+
+                    <!-- Features -->
+                    <div class="grid md:grid-cols-3 gap-8 mb-12">
+                        <div class="text-center">
+                            <div class="inline-flex items-center justify-center w-12 h-12 bg-blue-100 rounded-xl mb-4">
+                                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-800 mb-2">QR Code Based</h3>
+                            <p class="text-gray-600">Quick and contactless attendance marking using QR codes</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="inline-flex items-center justify-center w-12 h-12 bg-green-100 rounded-xl mb-4">
+                                <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 00-2 2h-2a2 2 0 01-2-2z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-800 mb-2">Real-time Tracking</h3>
+                            <p class="text-gray-600">Instant attendance updates and comprehensive reporting</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="inline-flex items-center justify-center w-12 h-12 bg-indigo-100 rounded-xl mb-4">
+                                <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-800 mb-2">Secure & Reliable</h3>
+                            <p class="text-gray-600">Secure data handling with user authentication</p>
+                        </div>
+                    </div>
+
+                    <!-- User Type Selection -->
+                    <div class="max-w-2xl mx-auto">
+                        <h2 class="text-2xl font-semibold text-gray-800 mb-8">Choose Your Role</h2>
+                        
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <!-- Teacher Card -->
+                            <div class="bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-2xl p-8 hover:shadow-lg transition-all duration-300 cursor-pointer group" onclick="showTeacherOptions()">
+                                <div class="text-center">
+                                    <div class="inline-flex items-center justify-center w-16 h-16 bg-blue-600 rounded-2xl mb-4 group-hover:scale-110 transition-transform">
+                                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                                        </svg>
+                                    </div>
+                                    <h3 class="text-xl font-bold text-gray-800 mb-2">Teacher</h3>
+                                    <p class="text-gray-600 mb-6">Generate QR codes, manage subjects, and track attendance</p>
+                                    <div class="space-y-3">
+                                        <button id="teacher-login-btn" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-xl font-semibold transition-colors">
+                                            Login as Teacher
+                                        </button>
+                                        <button id="teacher-register-btn" class="w-full bg-white hover:bg-gray-50 text-blue-600 border-2 border-blue-600 py-3 px-6 rounded-xl font-semibold transition-colors">
+                                            Register as Teacher
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Student Card -->
+                            <div class="bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200 rounded-2xl p-8 hover:shadow-lg transition-all duration-300 cursor-pointer group" onclick="showStudentOptions()">
+                                <div class="text-center">
+                                    <div class="inline-flex items-center justify-center w-16 h-16 bg-green-600 rounded-2xl mb-4 group-hover:scale-110 transition-transform">
+                                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                        </svg>
+                                    </div>
+                                    <h3 class="text-xl font-bold text-gray-800 mb-2">Student</h3>
+                                    <p class="text-gray-600 mb-6">Scan QR codes to mark attendance and view history</p>
+                                    <div class="space-y-3">
+                                        <button id="student-login-btn" class="w-full bg-green-600 hover:bg-green-700 text-white py-3 px-6 rounded-xl font-semibold transition-colors">
+                                            Login as Student
+                                        </button>
+                                        <button id="student-register-btn" class="w-full bg-white hover:bg-gray-50 text-green-600 border-2 border-green-600 py-3 px-6 rounded-xl font-semibold transition-colors">
+                                            Register as Student
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Login Form -->
+        <div id="login-form" class="hidden">
+            <div class="bg-white/90 backdrop-blur-sm rounded-2xl shadow-2xl p-8 max-w-md mx-auto border border-gray-100">
+                <h2 id="login-title" class="text-3xl font-bold text-gray-800 mb-8 text-center">Login</h2>
+                
+                <form id="login-form-element">
+                    <div class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-3">Email Address</label>
+                            <input type="email" id="login-email" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-gray-50 focus:bg-white">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-3">Password</label>
+                            <input type="password" id="login-password" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-gray-50 focus:bg-white">
+                        </div>
+                        <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white py-3 px-4 rounded-xl font-semibold transition-all duration-200 shadow-lg hover:shadow-xl">
+                            Sign In
+                        </button>
+                    </div>
+                </form>
+                
+                <div class="mt-6 text-center">
+                    <button id="show-register-btn" class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                        Don't have an account? Register here
+                    </button>
+                </div>
+                
+                <div class="mt-4 text-center">
+                    <button id="back-to-welcome-btn" class="text-gray-500 hover:text-gray-700 text-sm font-medium">
+                        ← Back to Welcome
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Registration Form -->
+        <div id="register-form" class="hidden">
+            <div class="bg-white/90 backdrop-blur-sm rounded-2xl shadow-2xl p-8 max-w-lg mx-auto border border-gray-100">
+                <h2 id="register-title" class="text-3xl font-bold text-gray-800 mb-8 text-center">Register</h2>
+                
+                <form id="register-form-element">
+                    <div class="space-y-5">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Full Name</label>
+                            <input type="text" id="register-fullname" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-gray-50 focus:bg-white">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Email Address</label>
+                            <input type="email" id="register-email" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-gray-50 focus:bg-white">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Password</label>
+                            <input type="password" id="register-password" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-gray-50 focus:bg-white">
+                        </div>
+                        
+                        <!-- Teacher specific fields -->
+                        <div id="teacher-fields" class="hidden space-y-5">
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Department</label>
+                                <input type="text" id="register-department" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-gray-50 focus:bg-white">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Employee ID</label>
+                                <input type="text" id="register-emp-id" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-gray-50 focus:bg-white">
+                            </div>
+                        </div>
+                        
+                        <!-- Student specific fields -->
+                        <div id="student-fields" class="hidden space-y-5">
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Roll Number</label>
+                                <input type="text" id="register-roll-no" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all bg-gray-50 focus:bg-white">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Course</label>
+                                <input type="text" id="register-course" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all bg-gray-50 focus:bg-white">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Year</label>
+                                <select id="register-year" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all bg-gray-50 focus:bg-white">
+                                    <option value="">Select Year</option>
+                                    <option value="1st Year">1st Year</option>
+                                    <option value="2nd Year">2nd Year</option>
+                                    <option value="3rd Year">3rd Year</option>
+                                    <option value="4th Year">4th Year</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Section</label>
+                                <input type="text" id="register-section" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all bg-gray-50 focus:bg-white">
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white py-3 px-4 rounded-xl font-semibold transition-all duration-200 shadow-lg hover:shadow-xl mt-6">
+                            Create Account
+                        </button>
+                    </div>
+                </form>
+                
+                <div class="mt-6 text-center">
+                    <button id="show-login-btn" class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                        Already have an account? Login here
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Teacher Dashboard -->
+        <div id="teacher-dashboard" class="hidden">
+            <div class="bg-white/90 backdrop-blur-sm rounded-2xl shadow-2xl p-8 border border-gray-100">
+                <div class="flex justify-between items-center mb-8">
+                    <div>
+                        <h2 class="text-3xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Teacher Dashboard</h2>
+                        <p class="text-gray-600 mt-1">Manage your classes and track attendance</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-sm text-gray-500">Welcome back,</p>
+                        <span id="teacher-name" class="text-lg font-semibold text-gray-800"></span>
+                    </div>
+                </div>
+                
+                <!-- Subjects Management -->
+                <div class="mb-10">
+                    <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 border border-blue-100">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                            <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center mr-3">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                                </svg>
+                            </div>
+                            Manage Subjects
+                        </h3>
+                        
+                        <div class="flex gap-4 mb-6">
+                            <input type="text" id="new-subject-name" placeholder="Enter subject name (e.g., Mathematics)" class="flex-1 px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-white">
+                            <button id="add-subject-btn" class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-8 py-3 rounded-xl font-semibold transition-all duration-200 shadow-lg hover:shadow-xl">
+                                Add Subject
+                            </button>
+                        </div>
+                        
+                        <div id="subjects-list" class="space-y-3">
+                            <!-- Subjects will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- QR Code Generation -->
+                <div class="mb-10">
+                    <div class="bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl p-6 border border-green-100">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                            <div class="w-8 h-8 bg-green-600 rounded-lg flex items-center justify-center mr-3">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path>
+                                </svg>
+                            </div>
+                            Generate QR Code
+                        </h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                            <select id="qr-subject-select" class="px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all bg-white">
+                                <option value="">Select Subject</option>
+                            </select>
+                            <input type="text" id="qr-class-section" placeholder="Class Section (e.g., CSE-A)" class="px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all bg-white">
+                            <button id="generate-qr-btn" class="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white px-8 py-3 rounded-xl font-semibold transition-all duration-200 shadow-lg hover:shadow-xl">
+                                Generate QR
+                            </button>
+                        </div>
+                        
+                        <div id="qr-code-display" class="hidden text-center">
+                            <div class="bg-white rounded-2xl p-8 border border-green-200 shadow-lg">
+                                <img id="qr-code-image" src="" alt="QR Code" class="mx-auto mb-6 rounded-xl shadow-md">
+                                <div id="qr-session-info" class="text-sm text-gray-700 bg-gray-50 rounded-xl p-4">
+                                    <!-- Session info will be displayed here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Attendance Records -->
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-700 mb-4">Attendance Records</h3>
+                    <button id="refresh-records-btn" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors mb-4">
+                        Refresh Records
+                    </button>
+                    
+                    <div id="attendance-records" class="space-y-4">
+                        <!-- Records will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Student Dashboard -->
+        <div id="student-dashboard" class="hidden">
+            <div class="bg-white rounded-xl shadow-xl p-8">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800">Student Dashboard</h2>
+                    <span id="student-name" class="text-lg text-gray-600"></span>
+                </div>
+                
+                <!-- QR Scanner -->
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold text-gray-700 mb-4">Mark Attendance</h3>
+                    
+                    <div class="text-center">
+                        <button id="start-scan-btn" class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors mb-4">
+                            Start QR Scanner
+                        </button>
+                        
+                        <div id="qr-reader" class="hidden mx-auto max-w-md">
+                            <!-- QR Scanner will be initialized here -->
+                        </div>
+                        
+                        <div id="scan-result" class="hidden mt-4 p-4 bg-green-50 border border-green-200 rounded-lg">
+                            <!-- Scan result will be displayed here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Attendance History -->
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-700 mb-4">Attendance History</h3>
+                    <button id="refresh-history-btn" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors mb-4">
+                        Refresh History
+                    </button>
+                    
+                    <div id="attendance-history" class="space-y-4">
+                        <!-- History will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alert Modal -->
+    <div id="alert-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-6 max-w-sm mx-4">
+            <div id="alert-content" class="text-center">
+                <div id="alert-message" class="mb-4"></div>
+                <button id="alert-ok-btn" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg">
+                    OK
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let currentUser = null;
+        let currentUserType = null;
+        let html5QrCode = null;
+        
+        const API_BASE_URL = 'http://127.0.0.1:5000/api';
+
+        // Utility functions
+        function showAlert(message, type = 'info') {
+            const alertModal = document.getElementById('alert-modal');
+            const alertMessage = document.getElementById('alert-message');
+            
+            alertMessage.textContent = message;
+            alertMessage.className = `mb-4 ${type === 'error' ? 'text-red-600' : type === 'success' ? 'text-green-600' : 'text-gray-800'}`;
+            
+            alertModal.classList.remove('hidden');
+        }
+
+        function hideAlert() {
+            document.getElementById('alert-modal').classList.add('hidden');
+        }
+
+        function showScreen(screenId) {
+            const screens = ['welcome-screen', 'login-form', 'register-form', 'teacher-dashboard', 'student-dashboard'];
+            screens.forEach(id => {
+                document.getElementById(id).classList.add('hidden');
+            });
+            document.getElementById(screenId).classList.remove('hidden');
+            
+            // Show/hide navigation
+            const navButtons = document.getElementById('nav-buttons');
+            if (screenId === 'teacher-dashboard' || screenId === 'student-dashboard') {
+                navButtons.classList.remove('hidden');
+            } else {
+                navButtons.classList.add('hidden');
+            }
+        }
+
+        async function apiCall(endpoint, method = 'GET', data = null) {
+            try {
+                const options = {
+                    method,
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                };
+                
+                if (data) {
+                    options.body = JSON.stringify(data);
+                }
+                
+                const response = await fetch(`${API_BASE_URL}${endpoint}`, options);
+                const result = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(result.error || 'Request failed');
+                }
+                
+                return result;
+            } catch (error) {
+                console.error('API Error:', error);
+                throw error;
+            }
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Welcome screen buttons
+            document.getElementById('teacher-login-btn').addEventListener('click', () => {
+                currentUserType = 'teacher';
+                document.getElementById('login-title').textContent = 'Teacher Login';
+                showScreen('login-form');
+            });
+
+            document.getElementById('teacher-register-btn').addEventListener('click', () => {
+                currentUserType = 'teacher';
+                document.getElementById('register-title').textContent = 'Teacher Registration';
+                document.getElementById('teacher-fields').classList.remove('hidden');
+                document.getElementById('student-fields').classList.add('hidden');
+                showScreen('register-form');
+            });
+
+            document.getElementById('student-login-btn').addEventListener('click', () => {
+                currentUserType = 'student';
+                document.getElementById('login-title').textContent = 'Student Login';
+                showScreen('login-form');
+            });
+
+            document.getElementById('student-register-btn').addEventListener('click', () => {
+                currentUserType = 'student';
+                document.getElementById('register-title').textContent = 'Student Registration';
+                document.getElementById('student-fields').classList.remove('hidden');
+                document.getElementById('teacher-fields').classList.add('hidden');
+                showScreen('register-form');
+            });
+
+            // Navigation
+            document.getElementById('back-to-welcome-btn').addEventListener('click', () => {
+                showScreen('welcome-screen');
+            });
+
+            document.getElementById('show-register-btn').addEventListener('click', () => {
+                document.getElementById('register-title').textContent = `${currentUserType.charAt(0).toUpperCase() + currentUserType.slice(1)} Registration`;
+                
+                if (currentUserType === 'teacher') {
+                    document.getElementById('teacher-fields').classList.remove('hidden');
+                    document.getElementById('student-fields').classList.add('hidden');
+                } else {
+                    document.getElementById('student-fields').classList.remove('hidden');
+                    document.getElementById('teacher-fields').classList.add('hidden');
+                }
+                
+                showScreen('register-form');
+            });
+
+            document.getElementById('show-login-btn').addEventListener('click', () => {
+                showScreen('login-form');
+            });
+
+            document.getElementById('logout-btn').addEventListener('click', () => {
+                currentUser = null;
+                currentUserType = null;
+                showScreen('welcome-screen');
+            });
+
+            // Alert modal
+            document.getElementById('alert-ok-btn').addEventListener('click', hideAlert);
+
+            // Login form
+            document.getElementById('login-form-element').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const email = document.getElementById('login-email').value;
+                const password = document.getElementById('login-password').value;
+                
+                try {
+                    const result = await apiCall('/login', 'POST', {
+                        type: currentUserType,
+                        email,
+                        password
+                    });
+                    
+                    currentUser = result.user;
+                    showAlert('Login successful!', 'success');
+                    
+                    setTimeout(() => {
+                        hideAlert();
+                        if (currentUserType === 'teacher') {
+                            loadTeacherDashboard();
+                        } else {
+                            loadStudentDashboard();
+                        }
+                    }, 1000);
+                    
+                } catch (error) {
+                    showAlert(error.message, 'error');
+                }
+            });
+
+            // Registration form
+            document.getElementById('register-form-element').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const formData = {
+                    fullname: document.getElementById('register-fullname').value,
+                    email: document.getElementById('register-email').value,
+                    password: document.getElementById('register-password').value
+                };
+                
+                if (currentUserType === 'teacher') {
+                    formData.department = document.getElementById('register-department').value;
+                    formData.emp_id = document.getElementById('register-emp-id').value;
+                } else {
+                    formData.roll_no = document.getElementById('register-roll-no').value;
+                    formData.course = document.getElementById('register-course').value;
+                    formData.year = document.getElementById('register-year').value;
+                    formData.section = document.getElementById('register-section').value;
+                }
+                
+                try {
+                    await apiCall(`/register/${currentUserType}`, 'POST', formData);
+                    showAlert('Registration successful! Please login.', 'success');
+                    
+                    setTimeout(() => {
+                        hideAlert();
+                        showScreen('login-form');
+                    }, 1500);
+                    
+                } catch (error) {
+                    showAlert(error.message, 'error');
+                }
+            });
+
+            // Teacher dashboard events
+            document.getElementById('add-subject-btn').addEventListener('click', addSubject);
+            document.getElementById('generate-qr-btn').addEventListener('click', generateQRCode);
+            document.getElementById('refresh-records-btn').addEventListener('click', loadAttendanceRecords);
+
+            // Student dashboard events
+            document.getElementById('start-scan-btn').addEventListener('click', startQRScanner);
+            document.getElementById('refresh-history-btn').addEventListener('click', loadAttendanceHistory);
+        });
+
+        // Teacher functions
+        async function loadTeacherDashboard() {
+            document.getElementById('teacher-name').textContent = currentUser.fullname;
+            showScreen('teacher-dashboard');
+            await loadSubjects();
+            await loadAttendanceRecords();
+        }
+
+        async function loadSubjects() {
+            try {
+                const subjects = await apiCall(`/teacher/subjects?teacher_id=${currentUser.id}`);
+                
+                const subjectsList = document.getElementById('subjects-list');
+                const subjectSelect = document.getElementById('qr-subject-select');
+                
+                subjectsList.innerHTML = '';
+                subjectSelect.innerHTML = '<option value="">Select Subject</option>';
+                
+                subjects.forEach(subject => {
+                    // Add to subjects list
+                    const subjectDiv = document.createElement('div');
+                    subjectDiv.className = 'flex justify-between items-center p-3 bg-gray-50 rounded-lg';
+                    subjectDiv.innerHTML = `
+                        <span class="font-medium">${subject.name}</span>
+                        <button onclick="deleteSubject(${subject.id})" class="text-red-600 hover:text-red-800 text-sm">
+                            Delete
+                        </button>
+                    `;
+                    subjectsList.appendChild(subjectDiv);
+                    
+                    // Add to select dropdown
+                    const option = document.createElement('option');
+                    option.value = subject.id;
+                    option.textContent = subject.name;
+                    subjectSelect.appendChild(option);
+                });
+                
+            } catch (error) {
+                showAlert('Failed to load subjects', 'error');
+            }
+        }
+
+        async function addSubject() {
+            const subjectName = document.getElementById('new-subject-name').value.trim();
+            
+            if (!subjectName) {
+                showAlert('Please enter a subject name', 'error');
+                return;
+            }
+            
+            try {
+                await apiCall('/teacher/subjects', 'POST', {
+                    teacher_id: currentUser.id,
+                    name: subjectName
+                });
+                
+                document.getElementById('new-subject-name').value = '';
+                showAlert('Subject added successfully!', 'success');
+                await loadSubjects();
+                
+            } catch (error) {
+                showAlert(error.message, 'error');
+            }
+        }
+
+        async function generateQRCode() {
+            console.log('🔄 Generate QR button clicked');
+            
+            const subjectId = document.getElementById('qr-subject-select').value;
+            const classSection = document.getElementById('qr-class-section').value.trim();
+            
+            console.log('📋 Subject ID:', subjectId);
+            console.log('📋 Class Section:', classSection);
+            console.log('👤 Current User:', currentUser);
+            
+            if (!subjectId || !classSection) {
+                console.log('❌ Missing subject or class section');
+                showAlert('Please select a subject and enter class section', 'error');
+                return;
+            }
+            
+            if (!currentUser || !currentUser.id) {
+                console.log('❌ No current user found');
+                showAlert('Please login first', 'error');
+                return;
+            }
+            
+            try {
+                console.log('🚀 Making API call to generate QR...');
+                
+                const requestData = {
+                    teacher_id: parseInt(currentUser.id),
+                    subject_id: parseInt(subjectId),
+                    class_section: classSection
+                };
+                
+                console.log('📤 Request data:', requestData);
+                
+                const result = await apiCall('/teacher/generate-qr', 'POST', requestData);
+                
+                console.log('✅ QR generation successful:', result);
+                
+                const qrImage = document.getElementById('qr-code-image');
+                const qrInfo = document.getElementById('qr-session-info');
+                const qrDisplay = document.getElementById('qr-code-display');
+                
+                if (qrImage && qrInfo && qrDisplay) {
+                    qrImage.src = result.qr_code;
+                    qrInfo.innerHTML = `
+                        <p><strong>Subject:</strong> ${result.session_info.subject}</p>
+                        <p><strong>Class:</strong> ${result.session_info.class_section}</p>
+                        <p><strong>Teacher:</strong> ${result.session_info.teacher}</p>
+                        <p><strong>Session ID:</strong> ${result.session_id}</p>
+                    `;
+                    
+                    qrDisplay.classList.remove('hidden');
+                    showAlert('QR Code generated successfully!', 'success');
+                } else {
+                    console.log('❌ QR display elements not found');
+                    showAlert('Display error - please refresh the page', 'error');
+                }
+                
+            } catch (error) {
+                console.log('❌ QR generation error:', error);
+                showAlert(error.message || 'Failed to generate QR code', 'error');
+            }
+        }
+
+        async function loadAttendanceRecords() {
+            try {
+                const records = await apiCall(`/teacher/attendance-records?teacher_id=${currentUser.id}`);
+                
+                const recordsContainer = document.getElementById('attendance-records');
+                recordsContainer.innerHTML = '';
+                
+                if (records.length === 0) {
+                    recordsContainer.innerHTML = '<p class="text-gray-500 text-center">No attendance records found</p>';
+                    return;
+                }
+                
+                records.forEach(record => {
+                    const recordDiv = document.createElement('div');
+                    recordDiv.className = 'bg-gray-50 p-4 rounded-lg';
+                    recordDiv.innerHTML = `
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <h4 class="font-semibold">${record.subject}</h4>
+                                <p class="text-sm text-gray-600">${record.class_section} • ${record.date} • ${record.time}</p>
+                            </div>
+                            <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-sm">
+                                ${record.attendance_count} students
+                            </span>
+                        </div>
+                        ${record.students.length > 0 ? `
+                            <div class="mt-2">
+                                <p class="text-sm font-medium text-gray-700 mb-1">Students Present:</p>
+                                <div class="text-sm text-gray-600">
+                                    ${record.students.map(student => `${student.name} (${student.roll_no})`).join(', ')}
+                                </div>
+                            </div>
+                        ` : ''}
+                    `;
+                    recordsContainer.appendChild(recordDiv);
+                });
+                
+            } catch (error) {
+                showAlert('Failed to load attendance records', 'error');
+            }
+        }
+
+        // Student functions
+        async function loadStudentDashboard() {
+            document.getElementById('student-name').textContent = currentUser.fullname;
+            showScreen('student-dashboard');
+            await loadAttendanceHistory();
+        }
+
+        async function startQRScanner() {
+            const qrReader = document.getElementById('qr-reader');
+            qrReader.classList.remove('hidden');
+            
+            if (html5QrCode) {
+                html5QrCode.stop();
+            }
+            
+            html5QrCode = new Html5Qrcode("qr-reader");
+            
+            try {
+                await html5QrCode.start(
+                    { facingMode: "environment" },
+                    {
+                        fps: 10,
+                        qrbox: { width: 250, height: 250 }
+                    },
+                    async (decodedText) => {
+                        await markAttendance(decodedText);
+                        html5QrCode.stop();
+                        qrReader.classList.add('hidden');
+                    },
+                    (errorMessage) => {
+                        // Handle scan errors silently
+                    }
+                );
+            } catch (error) {
+                showAlert('Failed to start camera. Please check permissions.', 'error');
+                qrReader.classList.add('hidden');
+            }
+        }
+
+        async function markAttendance(qrData) {
+            try {
+                const result = await apiCall('/student/mark-attendance', 'POST', {
+                    qr_data: qrData,
+                    student_id: currentUser.id
+                });
+                
+                showAlert('Attendance marked successfully!', 'success');
+                await loadAttendanceHistory();
+                
+            } catch (error) {
+                showAlert(error.message, 'error');
+            }
+        }
+
+        async function loadAttendanceHistory() {
+            try {
+                const history = await apiCall(`/student/attendance-history?student_id=${currentUser.id}`);
+                
+                const historyContainer = document.getElementById('attendance-history');
+                historyContainer.innerHTML = '';
+                
+                if (history.length === 0) {
+                    historyContainer.innerHTML = '<p class="text-gray-500 text-center">No attendance records found</p>';
+                    return;
+                }
+                
+                history.forEach(record => {
+                    const recordDiv = document.createElement('div');
+                    recordDiv.className = 'bg-gray-50 p-4 rounded-lg';
+                    recordDiv.innerHTML = `
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h4 class="font-semibold">${record.subject}</h4>
+                                <p class="text-sm text-gray-600">${record.class_section}</p>
+                                <p class="text-sm text-gray-600">Teacher: ${record.teacher}</p>
+                            </div>
+                            <div class="text-right text-sm text-gray-600">
+                                <p>${record.date}</p>
+                                <p>Marked at: ${record.marked_at}</p>
+                            </div>
+                        </div>
+                    `;
+                    historyContainer.appendChild(recordDiv);
+                });
+                
+            } catch (error) {
+                showAlert('Failed to load attendance history', 'error');
+            }
+        }
+
+        // Global function for deleting subjects
+        window.deleteSubject = async function(subjectId) {
+            if (confirm('Are you sure you want to delete this subject?')) {
+                try {
+                    await apiCall(`/teacher/subjects/${subjectId}?teacher_id=${currentUser.id}`, 'DELETE');
+                    showAlert('Subject deleted successfully!', 'success');
+                    await loadSubjects();
+                } catch (error) {
+                    showAlert(error.message, 'error');
+                }
+            }
+        };
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9712144736a3002c',t:'MTc1NTUyNzExMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
