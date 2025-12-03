@@ -15,13 +15,13 @@ This is a simple Flask-based web application intended for college use.
 - Basic HTML + CSS frontend  
 - Single-file (or small) Flask backend for easy deployment  
 
-## ✅ Prerequisites
+## Prerequisites
 
 - Python 3.x  
 - `Flask` (and any other libraries listed in `requirements.txt`)  
 - (Optional but recommended) a virtual environment  
 
-## 🔧 Setup & Run Locally
+##  Setup & Run Locally
 
 1. Clone or download this repository  
 2. Create and activate a virtual environment (recommended)  
