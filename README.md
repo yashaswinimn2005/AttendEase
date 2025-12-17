@@ -19,7 +19,22 @@ This is a simple Flask-based web application intended for college use.
 
 - Python 3.x  
 - `Flask` (and any other libraries listed in `requirements.txt`)  
-- (Optional but recommended) a virtual environment  
+- (Optional but recommended) a virtual environment
+
+## Project Structure
+
+AttendEase/
+│
+├── app.py # main Flask application
+├── requirements.txt # Python dependencies
+├── attend.db / attenddb.sqlite # SQLite database file
+├── static/ # static assets (css, js, images)
+│ ├── css/
+│ ├── js/
+│ └── …
+├── templates/ # HTML templates (login page, home page, etc.)
+│ └── …
+└── README.md # this file
 
 ##  Setup & Run Locally
 
