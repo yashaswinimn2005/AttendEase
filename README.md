@@ -1,6 +1,7 @@
 # AttendEase
 
 Smart Attendance Management System using QR codes and a simple web interface.
+
 URL: https://yashaswinimn2005.github.io/AttendEase/
 
 ## Description
